@@ -13,10 +13,25 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="pt-8">
-        <div className="h-16 max-w-screen-md mb-2 m-auto border-emerald-800 border-2"></div>
-        <div className="p-2 max-w-screen-md m-auto border-2 border-violet-800">
-          <p className=" font-bold">Hello</p>
-          <p>welcome to my site</p>
+        <div className="h-16 max-w-screen-md mb-2 m-auto dark:border-emerald-800 border-2"></div>
+        <div className="p-2 flex max-w-screen-md m-auto border-2 dark:border-violet-800">
+          <Image
+            src="/potrait.jpg"
+            width={220}
+            height={220}
+            alt="Potrait of me"
+            quality={100}
+            placeholder="blur"
+            blurDataURL="/potrait.jpg"
+            className="rounded-full"
+          />
+          <div className="ml-4">
+            <div>Based in Vietnam</div>
+            <div>quangman1404@gmail.com</div>
+            <div>Facebook</div>
+            <div>Instagram</div>
+            <div>Linkedin</div>
+          </div>
         </div>
       </main>
 
