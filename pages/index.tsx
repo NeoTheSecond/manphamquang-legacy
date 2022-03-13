@@ -3,10 +3,11 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Section from "../components/Section";
 import styles from "../styles/Home.module.css";
+import Education from "../components/Education";
 
 const Home: NextPage = () => {
   return (
-    <div className="p-2 max-w-screen-md m-auto border-2 dark:border-violet-800">
+    <>
       <Section className="flex">
         <Image
           src="/portrait.jpg"
@@ -37,10 +38,8 @@ const Home: NextPage = () => {
           about my work can be found in experience.
         </p>
       </Section>
-      <Section breaker={false}>
-        <h4>Education</h4>
-      </Section>
-    </div>
+      <Education />
+    </>
   );
 };
 
