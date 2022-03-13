@@ -6,15 +6,17 @@ import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 import Education from "../components/Education";
-import { EducationType } from "../types";
+import { EducationType, ExperienceType } from "../types";
 import { InferGetStaticPropsType } from "next";
 import { GetStaticProps } from "next";
+import Experience from "../components/Experience";
 
 interface Props {
   educations: Array<EducationType>;
+  experiences: Array<ExperienceType>;
 }
 
-const Home: NextPage<Props> = ({ educations }) => {
+const Home: NextPage<Props> = ({ educations, experiences }) => {
   return (
     <>
       <Section className="flex">
@@ -48,6 +50,7 @@ const Home: NextPage<Props> = ({ educations }) => {
         </p>
       </Section>
       <Education data={educations} />
+      <Experience data={experiences} />
     </>
   );
 };
@@ -67,12 +70,29 @@ export const getStaticProps: GetStaticProps = async () => {
             publicUrl
           }
         }
+        experiences {
+          id
+          title
+          location
+          type
+          duration
+          description
+          technologies {
+            id
+            name
+          }
+          cover_image {
+            publicUrl
+          }
+        }
       }
     `,
   });
+
   return {
     props: {
       educations: data.educations,
+      experiences: data.experiences,
     },
   };
 };
