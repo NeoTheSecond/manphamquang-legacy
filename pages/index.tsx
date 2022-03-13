@@ -3,9 +3,18 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Section from "../components/Section";
 import styles from "../styles/Home.module.css";
+import { gql } from "@apollo/client";
+import client from "../apollo-client";
 import Education from "../components/Education";
+import { EducationType } from "../types";
+import { InferGetStaticPropsType } from "next";
+import { GetStaticProps } from "next";
 
-const Home: NextPage = () => {
+interface Props {
+  educations: Array<EducationType>;
+}
+
+const Home: NextPage<Props> = ({ educations }) => {
   return (
     <>
       <Section className="flex">
@@ -38,9 +47,32 @@ const Home: NextPage = () => {
           about my work can be found in experience.
         </p>
       </Section>
-      <Education />
+      <Education data={educations} />
     </>
   );
 };
 
 export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query({
+    query: gql`
+      query {
+        educations {
+          id
+          title
+          duration
+          location
+          cover_image {
+            publicUrl
+          }
+        }
+      }
+    `,
+  });
+  return {
+    props: {
+      educations: data.educations,
+    },
+  };
+};
