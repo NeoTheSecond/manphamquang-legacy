@@ -23,7 +23,7 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
 
 export default function Experience({ data }: { data: Array<ExperienceType> }) {
   return (
-    <Section>
+    <Section className="dark:text-white">
       <h2>Experience</h2>
       <div>
         {data.map((experience: ExperienceType) => (
