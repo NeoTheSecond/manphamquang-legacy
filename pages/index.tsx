@@ -44,7 +44,7 @@ const Info = ({
 const Home: NextPage<Props> = ({ educations, experiences }) => {
   return (
     <>
-      <Section className="flex">
+      <Section className="flex flex-col md:flex-row">
         <div className="text-center">
           <Image
             src="/portrait.jpg"
@@ -54,14 +54,14 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
             quality={100}
             placeholder="blur"
             blurDataURL="/portrait.jpg"
-            className="rounded-full"
+            className="rounded-full m-auto"
           />
           <div className="text-4xl mt-2 font-bold dark:text-white">
             Mẫn Phạm
           </div>
           <div className="font-light text-xl">Web Developer</div>
         </div>
-        <div className="ml-6 mt-2 space-y-3">
+        <div className="md:ml-6 mt-2 space-y-3">
           <Info
             icon={<AiOutlineHome className="h-6 w-6" />}
             text="Based in Vietnam"

@@ -115,7 +115,7 @@ export default function Header() {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <nav className="p-2 max-w-screen-md mb-2 m-auto dark:border-cyan-300 dark:shadow-md dark:shadow-cyan-500/50 border-2 text-gray-700 flex justify-between items-center">
+      <nav className="p-2 mb-2 m-auto dark:border-cyan-300 dark:shadow-md dark:shadow-cyan-500/50 border-2 text-gray-700 flex justify-between items-center">
         <div>
           <Link
             href="/"
