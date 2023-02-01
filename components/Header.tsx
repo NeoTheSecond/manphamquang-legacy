@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
+import { MdDarkMode } from "react-icons/md";
+import Router from "next/router";
 
 export default function Header() {
+  useEffect(() => {
+    if (!localStorage.theme) {
+      localStorage.theme = "light";
+    }
+  }, []);
+  const changeMode = () => {
+    switch (localStorage.theme) {
+      case "light":
+        localStorage.theme = "dark";
+        break;
+      case "dark":
+        localStorage.theme = "light";
+        break;
+      // default:
+      //   break;
+    }
+    Router.reload();
+
+    // // Whenever the user explicitly chooses dark mode
+    // localStorage.theme = "dark";
+
+    // // Whenever the user explicitly chooses to respect the OS preference
+    // localStorage.removeItem("theme");
+  };
   return (
     <>
       <Head>
@@ -88,7 +115,27 @@ export default function Header() {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <nav className="h-16 max-w-screen-md mb-2 m-auto dark:border-emerald-800 border-2"></nav>
+      <nav className=" p-2 max-w-screen-md mb-2 m-auto dark:border-emerald-800 border-2 text-gray-700 flex justify-between items-center">
+        <div>
+          <Link
+            href="/"
+            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-white rounded"
+          >
+            Home
+          </Link>
+        </div>
+        <div>
+          {/* <Link href="/" className="p-2 hover:bg-slate-100 rounded">
+            
+          </Link> */}
+          <button
+            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded"
+            onClick={changeMode}
+          >
+            <MdDarkMode className="dark:text-white" />
+          </button>
+        </div>
+      </nav>
     </>
   );
 }

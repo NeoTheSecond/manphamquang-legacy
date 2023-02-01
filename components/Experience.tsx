@@ -13,8 +13,7 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
   return (
     <div
       className={classNames(
-        "flex mb-2 bg-slate-200 border-slate-300 border rounded cursor-pointer transition ease-in-out delay-150",
-        isShow ? "h-[100%]" : "h-[74px]"
+        "flex p-2 mb-2 bg-slate-200 h-[100%] border-slate-300 border rounded cursor-pointer transition ease-in-out delay-150"
       )}
       onClick={handleClick}
     >
