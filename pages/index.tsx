@@ -23,9 +23,21 @@ interface Props {
   experiences: Array<ExperienceType>;
 }
 
-const Info = ({ icon, text }: { icon: React.ReactElement; text: string }) => (
-  <div className="flex space-x-2 items-center">
-    {icon} <p>{text}</p>
+const Info = ({
+  icon,
+  text,
+  type,
+}: {
+  icon: React.ReactElement;
+  text: string;
+  type: string;
+}) => (
+  <div className="flex space-x-2 items-center text-xl">
+    <p className="flex space-x-2 items-center dark:text-cyan-100">
+      {icon}
+      {`${type}: `}
+    </p>
+    <p className="font-semibold">{text}</p>
   </div>
 );
 
@@ -44,21 +56,26 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
             blurDataURL="/portrait.jpg"
             className="rounded-full"
           />
-          <div className="text-2xl font-bold">Mẫn Phạm</div>
-          <div className="font-light">Web Developer</div>
+          <div className="text-4xl mt-2 font-bold dark:text-white">
+            Mẫn Phạm
+          </div>
+          <div className="font-light text-xl">Web Developer</div>
         </div>
-        <div className="ml-4 space-y-3">
+        <div className="ml-6 mt-2 space-y-3">
           <Info
             icon={<AiOutlineHome className="h-6 w-6" />}
             text="Based in Vietnam"
+            type="Location"
           />
           <Info
             icon={<AiOutlineMail className="h-6 w-6" />}
             text="quangman1404@gmail.com"
+            type="email"
           />
-          <Info
+          {/* <Info
             icon={<AiOutlineFacebook className="h-6 w-6" />}
             text="Facebook"
+            type=""
           />
           <Info
             icon={<AiOutlineInstagram className="h-6 w-6" />}
@@ -67,7 +84,7 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
           <Info
             icon={<AiOutlineLinkedin className="h-6 w-6" />}
             text="Linkedin"
-          />
+          /> */}
         </div>
       </Section>
       <Section className="text-xl">

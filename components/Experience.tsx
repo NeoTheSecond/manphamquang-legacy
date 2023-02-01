@@ -13,7 +13,7 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
   return (
     <div
       className={classNames(
-        "flex p-2 mb-2 bg-slate-200 h-[100%] border-slate-300 border rounded cursor-pointer transition ease-in-out delay-150"
+        "flex p-2 mb-2 bg-slate-200 dark:bg-transparent h-[100%] border-slate-300 dark:border-cyan-900 border dark:shadow rounded cursor-pointer transition ease-in-out delay-150"
       )}
       onClick={handleClick}
     >
@@ -24,7 +24,7 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
         height={70}
         className="flex-initial h-[70px]"
       />
-      <div className="ml-2 text-zinc-800 flex-auto select-text">
+      <div className="ml-2 text-zinc-800 dark:text-cyan-50 flex-auto select-text">
         <div className="font-medium flex justify-between items-center">
           {data.title}
           <RxCaretDown className="mr-1" />
@@ -43,7 +43,9 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
 export default function Experience({ data }: { data: Array<ExperienceType> }) {
   return (
     <Section className="dark:text-white">
-      <h4 className="text-4xl text-zinc-700 mb-2">Experience</h4>
+      <h4 className="text-4xl text-zinc-700 mb-2 dark:text-cyan-200">
+        Experience
+      </h4>
       <div>
         {data.map((experience: ExperienceType) => (
           <ExperienceCard data={experience} key={experience.id} />
