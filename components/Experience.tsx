@@ -25,14 +25,18 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
         className="flex-initial h-[70px]"
       />
       <div className="ml-2 text-zinc-800 dark:text-cyan-50 flex-auto select-text">
-        <div className="font-medium flex justify-between items-center">
+        <div className="font-bold flex justify-between items-center">
           {data.title}
           <RxCaretDown className="mr-1" />
         </div>
         <div className="font-light">
           {data.location} - {data.duration}
         </div>
-        <div className={classNames({ "line-clamp-1": !isShow })}>
+        <div
+          className={classNames("opacity-75 font-light", {
+            "line-clamp-1": !isShow,
+          })}
+        >
           {data.description}
         </div>
       </div>

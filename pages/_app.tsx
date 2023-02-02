@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "../apollo-client";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -22,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
+      <ToastContainer />
     </ApolloProvider>
   );
 }

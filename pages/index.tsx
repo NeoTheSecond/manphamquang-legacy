@@ -16,7 +16,11 @@ import {
   AiOutlineFacebook,
   AiOutlineInstagram,
   AiOutlineLinkedin,
+  AiOutlineLink,
 } from "react-icons/ai";
+import { RiFolderUserLine } from "react-icons/ri";
+import Link from "next/link";
+import { toast } from "react-toastify";
 
 interface Props {
   educations: Array<EducationType>;
@@ -29,15 +33,15 @@ const Info = ({
   type,
 }: {
   icon: React.ReactElement;
-  text: string;
+  text: string | React.ReactElement;
   type: string;
 }) => (
-  <div className="flex space-x-2 items-center text-xl">
-    <p className="flex space-x-2 items-center dark:text-cyan-100">
+  <div className="flex space-x-2 items-center">
+    <p className="flex space-x-2 items-center text-xl text-slate-800 dark:text-cyan-100">
       {icon}
       {`${type}: `}
     </p>
-    <p className="font-semibold">{text}</p>
+    <div className="font-semibold text-2xl">{text}</div>
   </div>
 );
 
@@ -70,21 +74,44 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
           <Info
             icon={<AiOutlineMail className="h-6 w-6" />}
             text="quangman1404@gmail.com"
-            type="email"
-          />
-          {/* <Info
-            icon={<AiOutlineFacebook className="h-6 w-6" />}
-            text="Facebook"
-            type=""
+            type="Email"
           />
           <Info
-            icon={<AiOutlineInstagram className="h-6 w-6" />}
-            text="Instagram"
+            icon={<RiFolderUserLine className="h-6 w-6" />}
+            text={
+              <div className="flex">
+                <Link
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href="https://www.linkedin.com/in/m%E1%BA%ABn-ph%E1%BA%A1m-834428b5"
+                >
+                  <AiOutlineLinkedin className="h-8 w-8 hover:text-slate-600 dark:hover:text-cyan-300 cursor-pointer" />
+                </Link>
+                <Link
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href="https://www.facebook.com/man.phamquang.71"
+                >
+                  <AiOutlineFacebook className="h-8 w-8 hover:text-slate-600 dark:hover:text-blue-300 cursor-pointer" />
+                </Link>
+                <Link
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href="https://www.instagram.com/manphamquang"
+                >
+                  <AiOutlineInstagram className="h-8 w-8 hover:text-slate-600 dark:hover:text-rose-300 cursor-pointer" />
+                </Link>
+                <AiOutlineMail
+                  className="h-8 w-8 hover:text-slate-600 dark:hover:text-yellow-300 cursor-pointer"
+                  onClick={() => {
+                    navigator.clipboard.writeText("quangman1404@gmail.com");
+                    toast("Coppied email to clipboard.");
+                  }}
+                />
+              </div>
+            }
+            type="Social"
           />
-          <Info
-            icon={<AiOutlineLinkedin className="h-6 w-6" />}
-            text="Linkedin"
-          /> */}
         </div>
       </Section>
       <Section className="text-xl">

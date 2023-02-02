@@ -14,7 +14,7 @@ const EducationCard = ({ data }: { data: EducationType }) => (
       height={70}
     />
     <div className="ml-2 text-zinc-800 dark:text-cyan-50">
-      <div className="font-medium">{data.title}</div>
+      <div className="font-bold">{data.title}</div>
       <div className="font-light">{data.duration}</div>
       <div className="font-light">{data.location}</div>
     </div>
