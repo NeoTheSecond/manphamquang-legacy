@@ -115,13 +115,12 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
         </div>
       </Section>
       <Section className="text-xl">
-        <h4>
-          <span className="text-3xl">👋🏻</span> Hello!
-        </h4>
+        <h4 className="text-3xl">Hello! 👋🏻</h4>
         <p className="font-light">
-          My name is Mẫn, a Fullstack Web Developer with over 5 years of
-          experience. I am also an undergraduate enrolled in Bachelor of
-          Information Technology at RMIT University in Vietnam. <br />
+          My name is <b className="text-cyan-100">Mẫn</b>, a Fullstack Web
+          Developer with over 5 years of experience. I am also an undergraduate
+          enrolled in Bachelor of Information Technology at RMIT University in
+          Vietnam. <br />
           <br />
           Aside from the web, I have dabbled in many other tech fields like
           Machine Learning, Penetration Testing, Video Games, etc. The more
