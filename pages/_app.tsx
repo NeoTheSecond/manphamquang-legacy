@@ -7,22 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 
 // pages/_app.js
-import {
-  Inter,
-  Roboto_Mono,
-  Chivo_Mono,
-  Azeret_Mono,
-  Archivo,
-} from "@next/font/google";
-
-// If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ["latin"] });
-
-const roboto = Roboto_Mono({ subsets: ["latin"] });
-
-const chivo = Chivo_Mono({ subsets: ["latin"] });
-
-const azeret = Azeret_Mono({ subsets: ["latin"] });
+import { Archivo } from "@next/font/google";
 
 const archivo = Archivo({ subsets: ["latin"] });
 
