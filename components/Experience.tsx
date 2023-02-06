@@ -13,30 +13,31 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
   return (
     <div
       className={classNames(
-        "flex p-2 mb-2 bg-slate-200 dark:bg-transparent h-[100%] border-slate-300 dark:border-cyan-900 border dark:shadow rounded cursor-pointer transition ease-in-out delay-150"
+        "flex p-2 mb-2 bg-slate-200 overflow-hidden h-full dark:bg-transparent border-slate-300 dark:border-cyan-900 dark:bg-slate-900 border dark:shadow rounded cursor-pointer transition-[max-height] ease-in-out",
+        isShow ? "max-h-[500px]" : "max-h-[87px]"
       )}
       onClick={handleClick}
     >
       <Image
         src={data.cover_image.publicUrl}
         alt={data.title}
-        width={70}
-        height={70}
-        className="flex-initial h-[70px]"
+        width={69}
+        height={69}
+        className="flex-initial h-[69px]"
       />
-      <div className="ml-2 text-zinc-800 dark:text-cyan-50 flex-auto select-text">
-        <div className="font-bold flex justify-between items-center">
+      <div className="flex-auto ml-2 select-text text-zinc-800 dark:text-cyan-50">
+        <div className="flex items-center justify-between font-bold">
           {data.title}
-          <RxCaretDown className="mr-1" />
+          <RxCaretDown
+            className={classNames("mr-1 transition-transform", {
+              "rotate-180": isShow,
+            })}
+          />
         </div>
         <div className="font-light">
           {data.location} - {data.duration}
         </div>
-        <div
-          className={classNames("opacity-75 font-light", {
-            "line-clamp-1": !isShow,
-          })}
-        >
+        <div className={classNames("opacity-75  font-light select-none")}>
           {data.description}
         </div>
       </div>
@@ -47,7 +48,7 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
 export default function Experience({ data }: { data: Array<ExperienceType> }) {
   return (
     <Section className="dark:text-white">
-      <h4 className="text-4xl text-zinc-700 mb-2 dark:text-cyan-200">
+      <h4 className="mb-2 text-4xl text-zinc-700 dark:text-cyan-200">
         Experience
       </h4>
       <div>
