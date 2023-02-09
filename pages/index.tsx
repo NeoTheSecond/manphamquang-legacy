@@ -25,6 +25,9 @@ import { toast } from "react-toastify";
 interface Props {
   educations: Array<EducationType>;
   experiences: Array<ExperienceType>;
+  spotify: {
+    token: string;
+  };
 }
 
 const Info = ({
@@ -36,16 +39,16 @@ const Info = ({
   text: string | React.ReactElement;
   type: string;
 }) => (
-  <div className="flex space-x-2 items-center">
-    <p className="flex space-x-2 items-center text-xl text-slate-800 dark:text-cyan-100">
+  <div className="flex items-center space-x-2">
+    <p className="flex items-center space-x-2 text-xl text-slate-800 dark:text-cyan-100">
       {icon}
       {`${type}: `}
     </p>
-    <div className="font-semibold text-2xl">{text}</div>
+    <div className="text-2xl font-semibold">{text}</div>
   </div>
 );
 
-const Home: NextPage<Props> = ({ educations, experiences }) => {
+const Home: NextPage<Props> = ({ educations, experiences, spotify }) => {
   return (
     <>
       <Section className="flex flex-col md:flex-row">
@@ -58,26 +61,26 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
             quality={100}
             placeholder="blur"
             blurDataURL="/portrait.jpg"
-            className="rounded-full m-auto"
+            className="m-auto rounded-full"
           />
-          <div className="text-4xl mt-2 font-bold dark:text-white">
+          <div className="mt-2 text-4xl font-bold dark:text-white">
             Mẫn Phạm
           </div>
-          <div className="font-light text-xl">Web Developer</div>
+          <div className="text-xl font-light">Web Developer</div>
         </div>
-        <div className="md:ml-6 mt-2 space-y-3">
+        <div className="mt-2 space-y-3 md:ml-6">
           <Info
-            icon={<AiOutlineHome className="h-6 w-6" />}
+            icon={<AiOutlineHome className="w-6 h-6" />}
             text="Based in Vietnam"
             type="Location"
           />
           <Info
-            icon={<AiOutlineMail className="h-6 w-6" />}
+            icon={<AiOutlineMail className="w-6 h-6" />}
             text="quangman1404@gmail.com"
             type="Email"
           />
           <Info
-            icon={<RiFolderUserLine className="h-6 w-6" />}
+            icon={<RiFolderUserLine className="w-6 h-6" />}
             text={
               <div className="flex">
                 <Link
@@ -85,24 +88,24 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
                   target="_blank"
                   href="https://www.linkedin.com/in/m%E1%BA%ABn-ph%E1%BA%A1m-834428b5"
                 >
-                  <AiOutlineLinkedin className="h-8 w-8 hover:text-slate-600 dark:hover:text-cyan-300 cursor-pointer" />
+                  <AiOutlineLinkedin className="w-8 h-8 cursor-pointer hover:text-slate-600 dark:hover:text-cyan-300" />
                 </Link>
                 <Link
                   rel="noopener noreferrer"
                   target="_blank"
                   href="https://www.facebook.com/man.phamquang.71"
                 >
-                  <AiOutlineFacebook className="h-8 w-8 hover:text-slate-600 dark:hover:text-blue-300 cursor-pointer" />
+                  <AiOutlineFacebook className="w-8 h-8 cursor-pointer hover:text-slate-600 dark:hover:text-blue-300" />
                 </Link>
                 <Link
                   rel="noopener noreferrer"
                   target="_blank"
                   href="https://www.instagram.com/manphamquang"
                 >
-                  <AiOutlineInstagram className="h-8 w-8 hover:text-slate-600 dark:hover:text-rose-300 cursor-pointer" />
+                  <AiOutlineInstagram className="w-8 h-8 cursor-pointer hover:text-slate-600 dark:hover:text-rose-300" />
                 </Link>
                 <AiOutlineMail
-                  className="h-8 w-8 hover:text-slate-600 dark:hover:text-yellow-300 cursor-pointer"
+                  className="w-8 h-8 cursor-pointer hover:text-slate-600 dark:hover:text-yellow-300"
                   onClick={() => {
                     navigator.clipboard.writeText("quangman1404@gmail.com");
                     toast("Coppied email to clipboard.");
@@ -163,6 +166,9 @@ export const getStaticProps: GetStaticProps = async () => {
             publicUrl
           }
         }
+        spotify {
+          token
+        }
       }
     `,
   });
@@ -171,6 +177,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       educations: data.educations,
       experiences: data.experiences,
+      spotify: data.spotify,
     },
   };
 };
