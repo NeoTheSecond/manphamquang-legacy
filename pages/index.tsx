@@ -21,6 +21,7 @@ import {
 import { RiFolderUserLine } from "react-icons/ri";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import SpotifyPlaying from "../components/SpotifyPlaying";
 
 interface Props {
   educations: Array<EducationType>;
@@ -115,6 +116,7 @@ const Home: NextPage<Props> = ({ educations, experiences, spotify }) => {
             }
             type="Social"
           />
+          <SpotifyPlaying spotify={spotify} />
         </div>
       </Section>
       <Section className="text-xl">
