@@ -9,6 +9,11 @@ import { gql } from "@apollo/client";
 
 const SPOTIFY_URL = "https://api.spotify.com/v1/me/player/currently-playing";
 
+interface Spotify {
+  token: string;
+  refreshToken: string;
+}
+
 const fetcher = async (url: string, token: string) => {
   const res = await fetch(url, {
     headers: new Headers({
@@ -25,31 +30,47 @@ const fetcher = async (url: string, token: string) => {
   return res.json();
 };
 
-const getToken = async (callback: Dispatch<SetStateAction<null>>) => {
+const getToken = async (callback: Dispatch<SetStateAction<Spotify | null>>) => {
   const { data } = await client.query({
     query: gql`
       query {
         spotify {
           token
+          refreshToken
         }
       }
     `,
   });
-  callback(data.spotify.token);
+  callback({
+    token: data.spotify.token,
+    refreshToken: data.spotify.refreshToken,
+  });
 };
 
 export default function SpotifyPlaying() {
-  const [spotifyToken, setToken] = useState(null);
+  const [spotifyToken, setToken] = useState<Spotify | null>(null);
   useEffect(() => {
     getToken(setToken);
   }, []);
   const { data, error, isLoading } = useSWR(
-    spotifyToken ? [SPOTIFY_URL, spotifyToken] : null,
+    spotifyToken ? [SPOTIFY_URL, spotifyToken.token] : null,
     ([url, token]) => fetcher(url, token),
     {
       onError(err, key, config) {
         if (err.status === 401) {
-          // fetch("http://localhost:3001/refresh_spotify_token");
+          console.log("==> request refreshed token");
+
+          if (spotifyToken?.refreshToken) {
+            fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/spotify/refresh_spotify_token?` +
+                new URLSearchParams({
+                  refresh_token: spotifyToken?.refreshToken,
+                })
+            ).then(async (response) => {
+              const data = await response.json();
+              setToken({ ...spotifyToken, token: data.access_token });
+            });
+          }
         }
       },
     }
@@ -73,7 +94,7 @@ export default function SpotifyPlaying() {
           </div>
           <div className="flex space-x-2">
             <Image
-              className="flex-none"
+              className="flex-none h-fit"
               width={64}
               height={64}
               src={data.item.album.images[2].url}
