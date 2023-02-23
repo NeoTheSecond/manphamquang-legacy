@@ -2,12 +2,10 @@ import React from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Section from "../components/Section";
-import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 import Education from "../components/Education";
 import { EducationType, ExperienceType } from "../types";
-import { InferGetStaticPropsType } from "next";
 import { GetStaticProps } from "next";
 import Experience from "../components/Experience";
 import {
@@ -16,18 +14,15 @@ import {
   AiOutlineFacebook,
   AiOutlineInstagram,
   AiOutlineLinkedin,
-  AiOutlineLink,
 } from "react-icons/ai";
 import { RiFolderUserLine } from "react-icons/ri";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import SpotifyPlaying from "../components/SpotifyPlaying";
 
 interface Props {
   educations: Array<EducationType>;
   experiences: Array<ExperienceType>;
-  spotify: {
-    token: string;
-  };
 }
 
 const Info = ({
@@ -48,7 +43,7 @@ const Info = ({
   </div>
 );
 
-const Home: NextPage<Props> = ({ educations, experiences, spotify }) => {
+const Home: NextPage<Props> = ({ educations, experiences }) => {
   return (
     <>
       <Section className="flex flex-col md:flex-row">
@@ -68,7 +63,7 @@ const Home: NextPage<Props> = ({ educations, experiences, spotify }) => {
           </div>
           <div className="text-xl font-light">Web Developer</div>
         </div>
-        <div className="mt-2 space-y-3 md:ml-6">
+        <div className="flex flex-col mt-2 space-y-3 md:ml-6">
           <Info
             icon={<AiOutlineHome className="w-6 h-6" />}
             text="Based in Vietnam"
@@ -115,6 +110,7 @@ const Home: NextPage<Props> = ({ educations, experiences, spotify }) => {
             }
             type="Social"
           />
+          <SpotifyPlaying />
         </div>
       </Section>
       <Section className="text-xl">
@@ -177,7 +173,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       educations: data.educations,
       experiences: data.experiences,
-      spotify: data.spotify,
     },
   };
 };
