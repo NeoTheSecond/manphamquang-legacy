@@ -62,7 +62,7 @@ export default function SpotifyPlaying() {
     getToken(setToken);
   }, []);
   const { data, error, isLoading } = useSWR(
-    spotifyToken ? [SPOTIFY_URL, spotifyToken.token] : null,
+    spotifyToken && !nonePlaying ? [SPOTIFY_URL, spotifyToken.token] : null,
     ([url, token]) => fetcher(url, token),
     {
       onError(err, key, config) {
@@ -73,10 +73,12 @@ export default function SpotifyPlaying() {
                 new URLSearchParams({
                   refresh_token: spotifyToken?.refreshToken,
                 })
-            ).then(async (response) => {
-              const data = await response.json();
-              setToken({ ...spotifyToken, token: data.access_token });
-            });
+            )
+              .then(async (response) => {
+                const data = await response.json();
+                setToken({ ...spotifyToken, token: data.access_token });
+              })
+              .catch((err) => console.log(err));
           }
         }
         if (err.status === 204) {
