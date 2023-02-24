@@ -9,6 +9,8 @@ import { gql } from "@apollo/client";
 
 const SPOTIFY_URL = "https://api.spotify.com/v1/me/player/currently-playing";
 
+const SPOTIFY_RECENT = "https://api.spotify.com/v1/me/player/recently-played";
+
 interface Spotify {
   token: string;
   refreshToken: string;
@@ -53,10 +55,11 @@ export default function SpotifyPlaying() {
     getToken(setToken);
   }, []);
   const { data, error, isLoading } = useSWR(
-    spotifyToken ? [SPOTIFY_URL, spotifyToken.token] : null,
+    spotifyToken ? [SPOTIFY_RECENT, spotifyToken.token] : null,
     ([url, token]) => fetcher(url, token),
     {
       onError(err, key, config) {
+        console.log(err);
         if (err.status === 401) {
           console.log("==> request refreshed token");
 
@@ -81,9 +84,10 @@ export default function SpotifyPlaying() {
 
   if ((!error || !isLoading) && data) {
     console.log(data);
+    const recentData = data.items[0].track;
     return (
       <Link
-        href={data.item.external_urls.spotify}
+        href={recentData.external_urls.spotify}
         rel="noopener"
         target={"_blank"}
       >
@@ -97,8 +101,8 @@ export default function SpotifyPlaying() {
               className="flex-none h-fit"
               width={64}
               height={64}
-              src={data.item.album.images[2].url}
-              alt={data.item.name}
+              src={recentData.album.images[2].url}
+              alt={recentData.name}
             />
             <div>
               {/* <Marquee
@@ -112,8 +116,8 @@ export default function SpotifyPlaying() {
             >
               <div className="font-bold"> {data.item.name}</div>
             </Marquee> */}
-              <div className="font-bold"> {data.item.name}</div>
-              <div className="font-semibold">{data.item.album.name}</div>
+              <div className="font-bold"> {recentData.name}</div>
+              <div className="font-semibold">{recentData.album.name}</div>
             </div>
           </div>
         </div>
