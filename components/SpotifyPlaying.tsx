@@ -6,6 +6,7 @@ import Link from "next/link";
 import client from "../apollo-client";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { gql } from "@apollo/client";
+import classNames from "classnames";
 
 const SPOTIFY_URL = "https://api.spotify.com/v1/me/player/currently-playing";
 
@@ -55,6 +56,65 @@ const getToken = async (callback: Dispatch<SetStateAction<Spotify | null>>) => {
   });
 };
 
+const renderIsPlaying = (
+  isPlayingData: SpotifyApi.CurrentlyPlayingResponse
+) => {
+  const data = isPlayingData.item;
+  const album = (data as SpotifyApi.TrackObjectFull)?.album;
+  if (!data) return null;
+  return (
+    <Link href={data.external_urls.spotify} rel="noopener" target={"_blank"}>
+      <div className="flex items-center space-x-1">
+        <BsSpotify className="w-5 h-5" />{" "}
+        <p className="text-xl">Listening to:</p>
+      </div>
+      <div className="flex space-x-2">
+        {album && (
+          <Image
+            className="flex-none rounded h-fit"
+            width={64}
+            height={64}
+            src={album.images[2].url}
+            alt={data.name}
+          />
+        )}
+        <div>
+          <div className="font-bold"> {data.name}</div>
+
+          {album && <div className="font-semibold">{album.name}</div>}
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+const renderLastPlayed = (
+  lastPlayedData: SpotifyApi.UsersRecentlyPlayedTracksResponse
+) => {
+  const data = lastPlayedData.items[0].track;
+  return (
+    <Link href={data.external_urls.spotify} rel="noopener" target={"_blank"}>
+      <div className="flex items-center space-x-1">
+        <BsSpotify className="w-5 h-5" />{" "}
+        <p className="text-xl">Last listened to:</p>
+      </div>
+      <div className="flex space-x-2">
+        <Image
+          className="flex-none rounded h-fit"
+          width={64}
+          height={64}
+          src={data.album.images[2].url}
+          alt={data.name}
+        />
+        <div>
+          <div className="font-bold"> {data.name}</div>
+          <div className="font-semibold">{data.album.name}</div>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
 export default function SpotifyPlaying() {
   const [spotifyToken, setToken] = useState<Spotify | null>(null);
   const [nonePlaying, setNonePlaying] = useState(false);
@@ -97,68 +157,33 @@ export default function SpotifyPlaying() {
     ([url, token]) => fetcher(url, token)
   );
 
-  if (isLoading) return <div>loading...</div>;
+  if (data?.item === null) return null;
 
-  if ((!error || !isLoading) && data) {
-    const recentData = data.item;
-    return (
-      <Link
-        href={recentData.external_urls.spotify}
-        rel="noopener"
-        target={"_blank"}
-      >
-        <div className="w-full p-3 border rounded cursor-pointer bg-slate-200 dark:hover:bg-slate-800 dark:bg-slate-900 border-slate-300 md:w-80 dark:border-emerald-300 dark:text-emerald-400">
-          <div className="flex items-center space-x-1">
-            <BsSpotify className="w-5 h-5" />{" "}
-            <p className="text-xl">Listening to:</p>
-          </div>
-          <div className="flex space-x-2">
-            <Image
-              className="flex-none h-fit"
-              width={64}
-              height={64}
-              src={recentData.album.images[2].url}
-              alt={recentData.name}
-            />
-            <div>
-              <div className="font-bold"> {recentData.name}</div>
-              <div className="font-semibold">{recentData.album.name}</div>
+  return (
+    <div
+      className={classNames(
+        "w-full h-[118px] p-3 border rounded cursor-pointer  bg-slate-200 dark:hover:bg-slate-800 dark:bg-slate-900 border-slate-300 dark:border-emerald-300 dark:text-emerald-400",
+        {
+          "animate-pulse": isLoading,
+        }
+      )}
+    >
+      {isLoading ? (
+        <>
+          <div className="h-4 w-[200px] rounded w-200 bg-slate-300 dark:bg-emerald-300 " />
+          <div className="flex mt-2 space-x-2">
+            <div className="w-[64px] h-[64px] rounded bg-slate-300 dark:bg-emerald-300" />
+            <div className="mt-1">
+              <div className="rounded h-4 mb-1 w-[150px] bg-slate-300 dark:bg-emerald-300" />
+              <div className="rounded h-4 w-[50px] bg-slate-300 dark:bg-emerald-300" />
             </div>
           </div>
-        </div>
-      </Link>
-    );
-  }
-
-  if ((!lastPlayedErr || !lastPlayedIsLoading) && lastPlayed) {
-    const recentData = lastPlayed.items[0].track;
-    return (
-      <Link
-        href={recentData.external_urls.spotify}
-        rel="noopener"
-        target={"_blank"}
-      >
-        <div className="w-full p-3 border rounded cursor-pointer bg-slate-200 dark:hover:bg-slate-800 dark:bg-slate-900 border-slate-300 md:w-80 dark:border-emerald-300 dark:text-emerald-400">
-          <div className="flex items-center space-x-1">
-            <BsSpotify className="w-5 h-5" />{" "}
-            <p className="text-xl">Last listened to:</p>
-          </div>
-          <div className="flex space-x-2">
-            <Image
-              className="flex-none h-fit"
-              width={64}
-              height={64}
-              src={recentData.album.images[2].url}
-              alt={recentData.name}
-            />
-            <div>
-              <div className="font-bold"> {recentData.name}</div>
-              <div className="font-semibold">{recentData.album.name}</div>
-            </div>
-          </div>
-        </div>
-      </Link>
-    );
-  }
-  return null;
+        </>
+      ) : (!error || !isLoading) && data ? (
+        renderIsPlaying(data)
+      ) : (!lastPlayedErr || !lastPlayedIsLoading) && lastPlayed ? (
+        renderLastPlayed(lastPlayed)
+      ) : null}
+    </div>
+  );
 }

@@ -12,6 +12,7 @@
     "@apollo/react-hooks": "^4.0.0",
     "@next/font": "^13.1.6",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/spotify-api": "^0.0.20",
     "autoprefixer": "^10.4.2",
     "classnames": "^2.3.1",
     "graphql": "^16.3.0",

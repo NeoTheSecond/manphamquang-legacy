@@ -47,7 +47,7 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
   return (
     <>
       <Section className="flex flex-col md:flex-row">
-        <div className="text-center">
+        <div className="flex-none text-center">
           <Image
             src="/portrait.jpg"
             width={220}
@@ -63,7 +63,7 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
           </div>
           <div className="text-xl font-light">Web Developer</div>
         </div>
-        <div className="flex flex-col mt-2 space-y-3 md:ml-6">
+        <div className="flex flex-col flex-auto mt-2 space-y-3 md:ml-6">
           <Info
             icon={<AiOutlineHome className="w-6 h-6" />}
             text="Based in Vietnam"
