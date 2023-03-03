@@ -4,6 +4,17 @@ import Link from "next/link";
 import { MdDarkMode } from "react-icons/md";
 import Router from "next/router";
 
+const routes = [
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "Blogs",
+    href: "/blogs",
+  },
+];
+
 export default function Header() {
   useEffect(() => {
     if (!localStorage.theme) {
@@ -35,8 +46,7 @@ export default function Header() {
         <title>Man Pham Quang</title>
         <meta
           name="description"
-          content="My name is Mẫn, a Fullstack Web Developer with over 5 years of experience. I am also an undergraduate enrolled in Bachelor of Information Technology at RMIT University in Vietnam.
-"
+          content="My name is Mẫn, a Fullstack Web Developer with over 5 years of experience. I am also an undergraduate enrolled in Bachelor of Information Technology at RMIT University in Vietnam."
         />
         <link
           rel="apple-touch-icon"
@@ -113,16 +123,18 @@ export default function Header() {
           name="msapplication-TileImage"
           content="/favicons/ms-icon-144x144.png"
         />
-        <meta name="theme-color" content="#ffffff" />
       </Head>
       <nav className="flex items-center justify-between p-2 m-auto mb-2 text-gray-700 border-2 dark:border-cyan-300 dark:shadow-md dark:shadow-cyan-500/50">
         <div>
-          <Link
-            href="/"
-            className="p-2 text-xl rounded hover:bg-slate-100 dark:hover:text-cyan-200 dark:hover:bg-transparent dark:text-cyan-300"
-          >
-            Home
-          </Link>
+          {routes.map((route) => (
+            <Link
+              key={route.href}
+              href={route.href}
+              className="p-2 text-xl rounded hover:bg-slate-100 dark:hover:text-cyan-200 dark:hover:bg-transparent dark:text-cyan-300"
+            >
+              {route.name}
+            </Link>
+          ))}
         </div>
         <div>
           {/* <Link href="/" className="p-2 rounded hover:bg-slate-100">
