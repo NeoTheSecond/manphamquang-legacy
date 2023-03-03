@@ -39,7 +39,7 @@ const Info = ({
       {icon}
       {`${type}: `}
     </p>
-    <div className="text-2xl font-semibold">{text}</div>
+    <div className="text-xl font-semibold">{text}</div>
   </div>
 );
 
@@ -66,7 +66,7 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
         <div className="flex flex-col flex-auto mt-2 space-y-3 md:ml-6">
           <Info
             icon={<AiOutlineHome className="w-6 h-6" />}
-            text="Based in Vietnam"
+            text="Based in HCM city, Vietnam"
             type="Location"
           />
           <Info

@@ -115,25 +115,21 @@ export default function Header() {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <nav className="p-2 mb-2 m-auto dark:border-cyan-300 dark:shadow-md dark:shadow-cyan-500/50 border-2 text-gray-700 flex justify-between items-center">
+      <nav className="flex items-center justify-between p-2 m-auto mb-2 text-gray-700 border-2 dark:border-cyan-300 dark:shadow-md dark:shadow-cyan-500/50">
         <div>
           <Link
             href="/"
-            className="p-2 
-            hover:bg-slate-100 
-            dark:hover:text-cyan-200 
-            dark:hover:bg-transparent   
-            dark:text-cyan-300 rounded"
+            className="p-2 text-xl rounded hover:bg-slate-100 dark:hover:text-cyan-200 dark:hover:bg-transparent dark:text-cyan-300"
           >
             Home
           </Link>
         </div>
         <div>
-          {/* <Link href="/" className="p-2 hover:bg-slate-100 rounded">
+          {/* <Link href="/" className="p-2 rounded hover:bg-slate-100">
             
           </Link> */}
           <button
-            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded"
+            className="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
             onClick={changeMode}
           >
             <MdDarkMode className="dark:text-white" />

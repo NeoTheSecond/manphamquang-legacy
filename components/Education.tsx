@@ -13,7 +13,7 @@ const EducationCard = ({ data }: { data: EducationType }) => (
       width={70}
       height={70}
     />
-    <div className="ml-2 text-zinc-800 dark:text-cyan-50">
+    <div className="ml-2 text-base text-zinc-800 dark:text-cyan-50">
       <div className="font-bold">{data.title}</div>
       <div className="font-light">{data.duration}</div>
       <div className="font-light">{data.location}</div>
@@ -28,7 +28,7 @@ interface Props {
 export default function Education({ data }: Props) {
   return (
     <Section>
-      <h4 className="text-4xl text-zinc-700 mb-2 dark:text-cyan-200">
+      <h4 className="mb-2 text-4xl text-zinc-700 dark:text-cyan-200">
         Education
       </h4>
 

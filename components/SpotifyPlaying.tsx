@@ -162,7 +162,7 @@ export default function SpotifyPlaying() {
   return (
     <div
       className={classNames(
-        "w-full h-[118px] p-3 border rounded cursor-pointer  bg-slate-200 dark:hover:bg-slate-800 dark:bg-slate-900 border-slate-300 dark:border-emerald-300 dark:text-emerald-400",
+        "w-full h-[118px] p-3 text-base border rounded cursor-pointer  bg-slate-200 dark:hover:bg-slate-800 dark:bg-slate-900 border-slate-300 dark:border-emerald-300 dark:text-emerald-400",
         {
           "animate-pulse": isLoading,
         }
