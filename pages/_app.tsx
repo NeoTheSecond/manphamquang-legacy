@@ -3,6 +3,8 @@ import Layout from "../components/Layout";
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "../apollo-client";
 import { ToastContainer } from "react-toastify";
+import { Analytics } from "@vercel/analytics/react";
+
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 
@@ -47,6 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <Layout>
           <Component {...pageProps} />
+          <Analytics />
           <ToastContainer
             toastClassName={(data) => {
               if (data) {
