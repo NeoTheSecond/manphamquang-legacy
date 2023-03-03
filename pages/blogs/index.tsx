@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Image from "next/image";
 import React, { ReactElement } from "react";
 
@@ -5,8 +6,21 @@ const TableHead = ({ children }: { children?: string }) => (
   <th className="p-2 border-b border-slate-300">{children}</th>
 );
 
-const TableData = ({ children }: { children: string | ReactElement }) => (
-  <td className="p-2 border-b border-slate-300">{children}</td>
+const TableData = ({
+  children,
+  isLast,
+}: {
+  children: string | ReactElement;
+  isLast: boolean;
+}) => (
+  <td
+    className={classNames(
+      "p-2  border-slate-300",
+      isLast ? "border-0" : "border-b"
+    )}
+  >
+    {children}
+  </td>
 );
 
 const data = [
@@ -41,31 +55,37 @@ export default function Blogs() {
             <TableHead></TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Type</TableHead>
-            <TableHead>duration</TableHead>
-            <TableHead>posted on</TableHead>
+            <TableHead>Duration</TableHead>
+            <TableHead>Posted on</TableHead>
           </tr>
         </thead>
         <tbody>
-          {data.map((row) => (
-            <tr key={row.title} className="cursor-pointer hover:bg-slate-200">
-              <TableData>
-                <Image
-                  src="/portrait.jpg"
-                  width={50}
-                  height={30}
-                  alt="Portrait of me"
-                  quality={100}
-                  placeholder="blur"
-                  blurDataURL="/portrait.jpg"
-                  className="rounded-sm"
-                />
-              </TableData>
-              <TableData>{row.title}</TableData>
-              <TableData>{row.type}</TableData>
-              <TableData>{row.duration}</TableData>
-              <TableData>{row.postedOn}</TableData>
-            </tr>
-          ))}
+          {data.map((row, idx) => {
+            const isLast = idx === data.length - 1;
+            return (
+              <tr
+                key={row.title}
+                className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                <TableData isLast={isLast}>
+                  <Image
+                    src="/portrait.jpg"
+                    width={60}
+                    height={40}
+                    alt="Portrait of me"
+                    quality={100}
+                    placeholder="blur"
+                    blurDataURL="/portrait.jpg"
+                    className="rounded-sm w-[60px] h-[40px] object-cover"
+                  />
+                </TableData>
+                <TableData isLast={isLast}>{row.title}</TableData>
+                <TableData isLast={isLast}>{row.type}</TableData>
+                <TableData isLast={isLast}>{row.duration}</TableData>
+                <TableData isLast={isLast}>{row.postedOn}</TableData>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
