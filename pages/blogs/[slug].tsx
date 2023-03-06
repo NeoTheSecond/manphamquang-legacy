@@ -4,9 +4,19 @@ import { ParsedUrlQuery } from "querystring";
 import React from "react";
 import client from "../../apollo-client";
 import { PostType } from "../../types";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
+import CustomDocumentRenderer from "../../components/DocumentRenderer";
 
 const BlogDetail: NextPage<BlogDetailProps> = (props) => {
-  return <div>{props.post.title}</div>;
+  return (
+    <div className="pt-3">
+      <h1>{props.post.title}</h1>
+      <DocumentRenderer
+        document={props.post.content.document}
+        renderers={CustomDocumentRenderer}
+      />
+    </div>
+  );
 };
 
 interface Params extends ParsedUrlQuery {
@@ -28,6 +38,9 @@ export const getStaticProps: GetStaticProps<BlogDetailProps, Params> = async ({
         post(where: { slug: "${slug}" }) {
           id
           title
+          content {
+            document
+          }
           tags {
             id
             name

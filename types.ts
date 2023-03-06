@@ -1,3 +1,5 @@
+import type { DocumentRendererProps } from "@keystone-6/document-renderer";
+
 export interface EducationType {
   id: string;
   title: string;
@@ -26,10 +28,14 @@ export interface TechnologyType {
   id: string;
 }
 
+export type DocumentProp = DocumentRendererProps["document"];
 export interface PostType {
   id: string;
   title: string;
   postedOn: string;
+  content: {
+    document: DocumentProp;
+  };
   tags: [{ id: string; name: string }];
   slug: string;
   status: PostStatus.DRAFT | PostStatus.PUBLISHED;

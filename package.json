@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@apollo/react-hooks": "^4.0.0",
+    "@keystone-6/document-renderer": "^1.1.2",
     "@next/font": "^13.1.6",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/spotify-api": "^0.0.20",
