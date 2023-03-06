@@ -1,13 +1,8 @@
 import React from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
-import Section from "../components/Section";
 import { gql } from "@apollo/client";
-import client from "../apollo-client";
-import Education from "../components/Education";
-import { EducationType, ExperienceType } from "../types";
 import { GetStaticProps } from "next";
-import Experience from "../components/Experience";
 import {
   AiOutlineHome,
   AiOutlineMail,
@@ -18,7 +13,13 @@ import {
 import { RiFolderUserLine } from "react-icons/ri";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import SpotifyPlaying from "../components/SpotifyPlaying";
+
+import client from "apollo-client";
+import { EducationType, ExperienceType } from "types";
+import SpotifyPlaying from "components/SpotifyPlaying";
+import Experience from "components/Experience";
+import Education from "components/Education";
+import Section from "components/Section";
 
 interface Props {
   educations: Array<EducationType>;

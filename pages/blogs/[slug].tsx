@@ -1,11 +1,12 @@
+import React from "react";
 import { gql } from "@apollo/client";
 import { GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
-import React from "react";
-import client from "../../apollo-client";
-import { PostType } from "../../types";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
-import CustomDocumentRenderer from "../../components/DocumentRenderer";
+
+import client from "apollo-client";
+import CustomDocumentRenderer from "components/DocumentRenderer";
+import { PostType } from "types";
 
 const BlogDetail: NextPage<BlogDetailProps> = (props) => {
   return (

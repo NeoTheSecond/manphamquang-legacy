@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
-import client from "../../apollo-client";
-import { PostStatus, PostType } from "../../types";
+
+import client from "apollo-client";
+import { PostStatus, PostType } from "types";
 
 const TableHead = ({ children }: { children?: string }) => (
   <th className="p-2 border-b border-slate-300">{children}</th>

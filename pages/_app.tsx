@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { Analytics } from "@vercel/analytics/react";
 
 import "react-toastify/dist/ReactToastify.css";
-import "../styles/globals.css";
+import "styles/globals.css";
 
 // pages/_app.js
 import { Archivo } from "@next/font/google";
