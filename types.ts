@@ -25,3 +25,17 @@ export interface TechnologyType {
   name: string;
   id: string;
 }
+
+export interface PostType {
+  id: string;
+  title: string;
+  postedOn: string;
+  tags: [{ id: string; name: string }];
+  slug: string;
+  status: PostStatus.DRAFT | PostStatus.PUBLISHED;
+}
+
+export enum PostStatus {
+  DRAFT = "draft",
+  PUBLISHED = "published",
+}

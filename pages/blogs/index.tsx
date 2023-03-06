@@ -1,6 +1,12 @@
+import { gql } from "@apollo/client";
 import classNames from "classnames";
+import { GetStaticProps } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
+import client from "../../apollo-client";
+import { PostStatus, PostType } from "../../types";
 
 const TableHead = ({ children }: { children?: string }) => (
   <th className="p-2 border-b border-slate-300">{children}</th>
@@ -44,7 +50,13 @@ const data = [
   },
 ];
 
-export default function Blogs() {
+export default function Blogs({ posts }: { posts: PostType[] }) {
+  const router = useRouter();
+
+  const handleClickPost = (slug: string) => () => {
+    router.push(`blogs/${slug}`);
+  };
+
   return (
     <div>
       <h1 className="text-4xl">Blogs</h1>
@@ -60,12 +72,13 @@ export default function Blogs() {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, idx) => {
+          {posts.map((row, idx) => {
             const isLast = idx === data.length - 1;
             return (
               <tr
-                key={row.title}
+                key={row.id}
                 className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
+                onClick={handleClickPost(row.slug)}
               >
                 <TableData isLast={isLast}>
                   <Image
@@ -80,8 +93,8 @@ export default function Blogs() {
                   />
                 </TableData>
                 <TableData isLast={isLast}>{row.title}</TableData>
-                <TableData isLast={isLast}>{row.type}</TableData>
-                <TableData isLast={isLast}>{row.duration}</TableData>
+                <TableData isLast={isLast}>{row.postedOn}</TableData>
+                <TableData isLast={isLast}>{row.postedOn}</TableData>
                 <TableData isLast={isLast}>{row.postedOn}</TableData>
               </tr>
             );
@@ -91,3 +104,28 @@ export default function Blogs() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await client.query({
+    query: gql`
+      query {
+        posts(where: { status: { equals: "${PostStatus.PUBLISHED}" } }) {
+          id
+          title
+          slug
+          tags {
+            id
+            name
+          }
+          postedOn
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      posts: data.posts,
+    },
+  };
+};
