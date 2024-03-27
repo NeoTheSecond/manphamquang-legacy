@@ -117,9 +117,9 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
         <h4 className="text-3xl">Hello! 👋🏻</h4>
         <p className="font-light">
           My name is <b className="dark:text-cyan-100">Mẫn</b>, a Fullstack Web
-          Developer with over 5 years of experience. I am also an undergraduate
-          enrolled in Bachelor of Information Technology at RMIT University in
-          Vietnam. <br />
+          Developer with over 2 years of experience working professionally &
+          freelancing. I am also an undergraduate enrolled in Bachelor of
+          Information Technology at RMIT University in Vietnam. <br />
           <br />
           Aside from the web, I have dabbled in many other tech fields like
           Machine Learning, Penetration Testing, Video Games, etc. The more
