@@ -61,6 +61,9 @@ const renderIsPlaying = (
 ) => {
   const data = isPlayingData.item;
   const album = (data as SpotifyApi.TrackObjectFull)?.album;
+  const artists = (data as SpotifyApi.TrackObjectFull)?.artists;
+  const mainArtist = artists[0] || null;
+
   if (!data) return null;
   return (
     <Link href={data.external_urls.spotify} rel="noopener" target={"_blank"}>
@@ -80,8 +83,7 @@ const renderIsPlaying = (
         )}
         <div>
           <div className="font-bold"> {data.name}</div>
-
-          {album && <div className="font-semibold">{album.name}</div>}
+          {mainArtist && <div>{mainArtist.name}</div>}
         </div>
       </div>
     </Link>
@@ -108,7 +110,7 @@ const renderLastPlayed = (
         />
         <div>
           <div className="font-bold"> {data.name}</div>
-          <div className="font-semibold">{data.album.name}</div>
+          <div className="">{data.artists[0].name}</div>
         </div>
       </div>
     </Link>
@@ -116,6 +118,7 @@ const renderLastPlayed = (
 };
 
 export default function SpotifyPlaying() {
+  const [showSpotify, setShowSpotify] = useState(false);
   const [spotifyToken, setToken] = useState<Spotify | null>(null);
   const [nonePlaying, setNonePlaying] = useState(false);
   useEffect(() => {
@@ -138,12 +141,17 @@ export default function SpotifyPlaying() {
                 const data = await response.json();
                 setToken({ ...spotifyToken, token: data.access_token });
               })
-              .catch((err) => console.log(err));
+              .catch((err) => {
+                console.log(err);
+              });
           }
         }
         if (err.status === 204) {
           setNonePlaying(true);
         }
+      },
+      onSuccess() {
+        setShowSpotify(true);
       },
     }
   );
@@ -157,12 +165,12 @@ export default function SpotifyPlaying() {
     ([url, token]) => fetcher(url, token)
   );
 
-  if (data?.item === null) return null;
+  if (data?.item === null || !showSpotify) return null;
 
   return (
     <div
       className={classNames(
-        "w-full h-[118px] p-3 text-base border rounded cursor-pointer  bg-slate-200 dark:hover:bg-slate-800 dark:bg-slate-900 border-slate-300 dark:border-emerald-300 dark:text-emerald-400",
+        "w-full max-w-[300px] h-[118px] p-3 text-base border rounded cursor-pointer   hover:bg-slate-200 dark:hover:bg-slate-800 dark:bg-slate-900 border-slate-300 dark:border-emerald-300 dark:text-emerald-400",
         {
           "animate-pulse": isLoading,
         }

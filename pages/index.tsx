@@ -110,7 +110,7 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
             }
             type="Social"
           />
-          {/* <SpotifyPlaying /> */}
+          <SpotifyPlaying />
         </div>
       </Section>
       <Section className="text-xl">
