@@ -17,7 +17,11 @@ interface Spotify {
   refreshToken: string;
 }
 
-const fetcher = async (url: string, token: string) => {
+const fetcher = async (
+  url: string,
+  token: string,
+  successCallback: () => void
+) => {
   const res = await fetch(url, {
     headers: new Headers({
       Authorization: "Bearer " + token,
@@ -30,6 +34,7 @@ const fetcher = async (url: string, token: string) => {
     const status = res.status;
     throw { detail: error, status };
   }
+  successCallback();
   if (res.status === 204) {
     const error = new Error("Not playing anything");
     const status = res.status;
@@ -126,7 +131,7 @@ export default function SpotifyPlaying() {
   }, []);
   const { data, error, isLoading } = useSWR(
     spotifyToken && !nonePlaying ? [SPOTIFY_URL, spotifyToken.token] : null,
-    ([url, token]) => fetcher(url, token),
+    ([url, token]) => fetcher(url, token, () => setShowSpotify(true)),
     {
       onError(err, key, config) {
         if (err.status === 401) {
@@ -150,9 +155,6 @@ export default function SpotifyPlaying() {
           setNonePlaying(true);
         }
       },
-      onSuccess() {
-        setShowSpotify(true);
-      },
     }
   );
 
@@ -162,7 +164,7 @@ export default function SpotifyPlaying() {
     isLoading: lastPlayedIsLoading,
   } = useSWR(
     nonePlaying && spotifyToken ? [SPOTIFY_RECENT, spotifyToken.token] : null,
-    ([url, token]) => fetcher(url, token)
+    ([url, token]) => fetcher(url, token, () => setShowSpotify(true))
   );
 
   if (data?.item === null || !showSpotify) return null;
