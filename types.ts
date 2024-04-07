@@ -19,6 +19,8 @@ export interface ExperienceType {
   cover_image: {
     publicUrl: string;
   };
+  startDate: string;
+  endDate: string;
 }
 
 export interface TechnologyType {

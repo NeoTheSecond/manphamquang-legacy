@@ -4,6 +4,7 @@ import Section from "./Section";
 import Image from "next/image";
 import { RxCaretDown } from "react-icons/rx";
 import classNames from "classnames";
+import moment from "moment";
 
 const ExperienceCard = ({ data }: { data: ExperienceType }) => {
   const [isShow, setIsShow] = useState(false);
@@ -35,7 +36,9 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
           />
         </div>
         <div className="font-light">
-          {data.location} - {data.duration}
+          {/* {data.location} - {data.duration} */}
+          {moment(data.startDate, "YYYY-MM-DD").format("MM/YYYY")} -{" "}
+          {moment(data.startDate, "YYYY-MM-DD").format("MM/YYYY")} | {data.type}
         </div>
         <div className={classNames("opacity-75  font-light select-none")}>
           {data.description}
@@ -46,13 +49,19 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
 };
 
 export default function Experience({ data }: { data: Array<ExperienceType> }) {
+  const sorted = [...data].sort((a, b) => {
+    const endDateA = moment(a.endDate, "YYYY-MM-DD");
+    const endDateB = moment(b.endDate, "YYYY-MM-DD");
+    return endDateB.diff(endDateA);
+  });
+
   return (
     <Section className="dark:text-white">
       <h4 className="mb-2 text-4xl text-zinc-700 dark:text-cyan-200">
         Experience
       </h4>
       <div>
-        {data.map((experience: ExperienceType) => (
+        {sorted.map((experience: ExperienceType) => (
           <ExperienceCard data={experience} key={experience.id} />
         ))}
       </div>
