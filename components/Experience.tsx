@@ -38,8 +38,9 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
         <div className="font-light">
           {/* {data.location} - {data.duration} */}
           {moment(data.startDate, "YYYY-MM-DD").format("MM/YYYY")} -{" "}
-          {moment(data.startDate, "YYYY-MM-DD").format("MM/YYYY")} | {data.type}
+          {moment(data.endDate, "YYYY-MM-DD").format("MM/YYYY")} | {data.type}
         </div>
+        {/* <div>{data.technologies}</div> */}
         <div className={classNames("opacity-75  font-light select-none")}>
           {data.description}
         </div>
