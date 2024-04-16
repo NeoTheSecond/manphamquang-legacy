@@ -159,6 +159,7 @@ export const getStaticProps: GetStaticProps = async () => {
           technologies {
             id
             name
+            color
           }
           cover_image {
             publicUrl

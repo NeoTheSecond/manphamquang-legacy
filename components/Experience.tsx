@@ -14,8 +14,7 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
   return (
     <div
       className={classNames(
-        "flex p-2 mb-2 bg-slate-200 overflow-hidden h-full dark:bg-transparent border-slate-300 dark:border-cyan-900 dark:bg-slate-900 border dark:shadow rounded cursor-pointer transition-[max-height] ease-in-out",
-        isShow ? "max-h-[500px]" : "max-h-[87px]"
+        "flex p-2 mb-2 bg-slate-200 overflow-hidden h-full dark:bg-transparent border-slate-300 dark:border-cyan-900 dark:bg-slate-900 border dark:shadow rounded cursor-pointer"
       )}
       onClick={handleClick}
     >
@@ -40,9 +39,27 @@ const ExperienceCard = ({ data }: { data: ExperienceType }) => {
           {moment(data.startDate, "YYYY-MM-DD").format("MM/YYYY")} -{" "}
           {moment(data.endDate, "YYYY-MM-DD").format("MM/YYYY")} | {data.type}
         </div>
-        {/* <div>{data.technologies}</div> */}
-        <div className={classNames("opacity-75  font-light select-none")}>
+        <div
+          className={classNames(
+            "opacity-75  font-light select-none overflow-hidden transition-[max-height] ease-in-out",
+            isShow ? "max-h-[500px]" : "max-h-[29px]"
+          )}
+        >
           {data.description}
+        </div>
+        <div className="space-x-1 space-y-1">
+          {data.technologies.map((el) => {
+            return (
+              <span
+                key={el.id}
+                className={classNames(
+                  " border rounded border-slate-600 opacity-75 text-sm p-[2px] inline-block text-nowrap max-w-fit"
+                )}
+              >
+                {el.name}
+              </span>
+            );
+          })}
         </div>
       </div>
     </div>

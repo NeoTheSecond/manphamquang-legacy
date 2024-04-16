@@ -26,4 +26,5 @@ export interface ExperienceType {
 export interface TechnologyType {
   name: string;
   id: string;
+  color: string;
 }
