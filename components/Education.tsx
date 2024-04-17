@@ -27,7 +27,7 @@ interface Props {
 
 export default function Education({ data }: Props) {
   return (
-    <Section>
+    <Section breaker={false}>
       <h4 className="mb-2 text-4xl text-zinc-700 dark:text-cyan-200">
         Education
       </h4>
