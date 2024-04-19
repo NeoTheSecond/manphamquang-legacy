@@ -21,11 +21,14 @@ export interface ExperienceType {
   cover_image: {
     publicUrl: string;
   };
+  startDate: string;
+  endDate: string;
 }
 
 export interface TechnologyType {
   name: string;
   id: string;
+  color: string;
 }
 
 export type DocumentProp = DocumentRendererProps["document"];

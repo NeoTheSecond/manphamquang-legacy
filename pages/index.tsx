@@ -118,9 +118,9 @@ const Home: NextPage<Props> = ({ educations, experiences }) => {
         <h4 className="text-3xl">Hello! 👋🏻</h4>
         <p className="font-light">
           My name is <b className="dark:text-cyan-100">Mẫn</b>, a Fullstack Web
-          Developer with over 5 years of experience. I am also an undergraduate
-          enrolled in Bachelor of Information Technology at RMIT University in
-          Vietnam. <br />
+          Developer with over 2 years of experience working professionally &
+          freelancing. I am also an undergraduate enrolled in Bachelor of
+          Information Technology at RMIT University in Vietnam. <br />
           <br />
           Aside from the web, I have dabbled in many other tech fields like
           Machine Learning, Penetration Testing, Video Games, etc. The more
@@ -153,11 +153,14 @@ export const getStaticProps: GetStaticProps = async () => {
           title
           location
           type
+          startDate
+          endDate
           duration
           description
           technologies {
             id
             name
+            color
           }
           cover_image {
             publicUrl
@@ -175,5 +178,58 @@ export const getStaticProps: GetStaticProps = async () => {
       educations: data.educations,
       experiences: data.experiences,
     },
+    // revalidate: 60,
   };
 };
+
+// This function gets called at build time on server-side.
+// It may be called again, on a serverless function, if
+// the path has not been generated.
+// export async function getStaticPaths() {
+//   const res = await fetch('https://.../posts')
+//   const posts = await res.json()
+
+//   const { data } = await client.query({
+//     query: gql`
+//       query {
+//         educations {
+//           id
+//           title
+//           duration
+//           location
+//           cover_image {
+//             publicUrl
+//           }
+//         }
+//         experiences {
+//           id
+//           title
+//           location
+//           type
+//           duration
+//           description
+//           technologies {
+//             id
+//             name
+//           }
+//           cover_image {
+//             publicUrl
+//           }
+//         }
+//         spotify {
+//           token
+//         }
+//       }
+//     `,
+//   });
+
+//   // Get the paths we want to pre-render based on posts
+//   const paths = posts.map((post) => ({
+//     params: { id: post.id },
+//   }))
+
+//   // We'll pre-render only these paths at build time.
+//   // { fallback: 'blocking' } will server-render pages
+//   // on-demand if the path doesn't exist.
+//   return { paths, fallback: 'blocking' }
+// }
