@@ -11,7 +11,7 @@ import { PostType } from "types";
 const BlogDetail: NextPage<BlogDetailProps> = (props) => {
   return (
     <div className="pt-3">
-      <h1>{props.post.title}</h1>
+      <h1 className="mb-4 text-4xl text-bold">{props.post.title}</h1>
       <DocumentRenderer
         document={props.post.content.document}
         renderers={CustomDocumentRenderer}
